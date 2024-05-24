@@ -31,10 +31,10 @@ const Router = ({ ...rest }) => {
           <IsHasProfile>
             <Routes>
               <Route path={"/"} element={<DashboardLayout />}>
-                <Route
-                    path={"/training-center"}
-                    element={<TrainingCenterPage />}
-                />
+                {/*<Route*/}
+                {/*    path={"/training-center"}*/}
+                {/*    element={<TrainingCenterPage />}*/}
+                {/*/>*/}
                 <Route
                     path={"auth/*"}
                     element={<Navigate to={"/training-center"} replace />}
