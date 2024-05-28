@@ -8,23 +8,24 @@ import {get} from "lodash";
 import usePutQuery from "../../../hooks/api/usePutQuery.js";
 import useGetAllQuery from "../../../hooks/api/useGetAllQuery.js";
 
-const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
+const CreateEditExercise = ({itemData,setIsModalOpen,refetch}) => {
     const { t } = useTranslation();
     const [form] = Form.useForm();
-    const [searchCenter,setSearchCenter] = useState(null);
+    const [search,setSearch] = useState(null);
 
-    const { mutate, isLoading } = usePostQuery({
-        listKeyId: KEYS.student_list,
+    const { mutate, isLoading:isLoadingCreate } = usePostQuery({
+        listKeyId: KEYS.exercise_list,
     });
     const { mutate:mutateEdit, isLoading:isLoadingEdit } = usePutQuery({
-        listKeyId: KEYS.student_list,
+        listKeyId: KEYS.exercise_list,
     });
-    const { data:centers,isLoading:isLoadingCenters } = useGetAllQuery({
-        key: KEYS.training_center_list,
-        url: URLS.training_center_list,
+
+    const { data,isLoading} = useGetAllQuery({
+        key: KEYS.exercise_type_list,
+        url: URLS.exercise_type_list,
         params: {
             params: {
-                search: searchCenter,
+                search,
                 size: 1000
             }
         }
@@ -32,18 +33,15 @@ const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
 
     useEffect(() => {
         form.setFieldsValue({
-            fullName: get(itemData,'fullName'),
-            password: get(itemData,'password'),
-            phoneNumber: get(itemData,'phoneNumber'),
-            username: get(itemData,'username'),
-            trainingCenterId: get(itemData,'trainingCenterId')
+            name: get(itemData,'name'),
+            exerciseTypeId: get(itemData,'exerciseType.id'),
         });
     }, [itemData]);
 
     const onFinish = (values) => {
         if (itemData){
             mutateEdit(
-                { url: `${URLS.student_edit}/${get(itemData,'id')}`, attributes: values },
+                { url: `${URLS.exercise_edit}/${get(itemData,'id')}`, attributes: values },
                 {
                     onSuccess: () => {
                         setIsModalOpen(false);
@@ -53,7 +51,7 @@ const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
             );
         }else {
             mutate(
-                { url: URLS.student_add, attributes: values },
+                { url: URLS.exercise_add, attributes: values },
                 {
                     onSuccess: () => {
                         setIsModalOpen(false);
@@ -72,51 +70,27 @@ const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
                 form={form}
             >
                 <Form.Item
-                    label={t("fullName")}
-                    name="fullName"
+                    label={t("Name")}
+                    name="name"
                     rules={[{required: true,}]}
                 >
                     <Input />
                 </Form.Item>
 
                 <Form.Item
-                    label={t("username")}
-                    name="username"
-                    rules={[{required: true,}]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    label={t("phoneNumber")}
-                    name="phoneNumber"
-                    rules={[{required: true,}]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    label={t("password")}
-                    name="password"
-                    rules={[{required: true,}]}
-                >
-                    <Input.Password />
-                </Form.Item>
-
-                <Form.Item
-                    label={t("Training center")}
-                    name="trainingCenterId"
+                    label={t("Exercise type")}
+                    name="exerciseTypeId"
                     rules={[{required: true,}]}
                 >
                     <Select
                         showSearch
-                        placeholder={t("Training center")}
+                        placeholder={t("Exercise type")}
                         optionFilterProp="children"
-                        onSearch={(e) => setSearchCenter(e)}
+                        onSearch={(e) => setSearch(e)}
                         filterOption={(input, option) =>
                             (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-                        loading={isLoadingCenters}
-                        options={get(centers,'data.data.content')?.map((item) => {
+                        loading={isLoading}
+                        options={get(data,'data.data.content')?.map((item) => {
                             return {
                                 value: get(item,'id'),
                                 label: get(item,'name')
@@ -124,9 +98,8 @@ const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
                         })}
                     />
                 </Form.Item>
-
                 <Form.Item>
-                    <Button block type="primary" htmlType="submit" loading={isLoading || isLoadingEdit}>
+                    <Button block type="primary" htmlType="submit" loading={isLoadingCreate || isLoadingEdit}>
                         {itemData ? t("Edit") : t("Create")}
                     </Button>
                 </Form.Item>
@@ -135,4 +108,4 @@ const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
     );
 };
 
-export default CreateEditStudent;
+export default CreateEditExercise;

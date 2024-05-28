@@ -21,6 +21,9 @@ import OverlayLoader from "../components/OverlayLoader.jsx";
 import IsHasProfile from "../services/auth/IsHasProfile.jsx";
 import StudentsPage from "../modules/students/pages/StudentsPage.jsx";
 import TrainingCenterPage from "../modules/training-center/pages/TrainingCenterPage.jsx";
+import ScoringCriteriaPage from "../modules/scoring-criteria/pages/ScoringCriteriaPage.jsx";
+import ExerciseTypePage from "../modules/exercise-type/pages/ExerciseTypePage.jsx";
+import ExercisePage from "../modules/exercise/pages/ExercisePage.jsx";
 // PAGES
 
 
@@ -35,6 +38,18 @@ const Router = ({ ...rest }) => {
                 <Route
                     path={"/training-center"}
                     element={<TrainingCenterPage />}
+                />
+                <Route
+                    path={"/exercise"}
+                    element={<ExercisePage />}
+                />
+                <Route
+                    path={"/exercise-type"}
+                    element={<ExerciseTypePage />}
+                />
+                <Route
+                    path={"/scoring-criteria"}
+                    element={<ScoringCriteriaPage />}
                 />
                 <Route
                     path={"/students"}
