@@ -19,6 +19,7 @@ import NotFoundPage from  "../modules/auth/pages/NotFoundPage";
 // PAGES
 import OverlayLoader from "../components/OverlayLoader.jsx";
 import IsHasProfile from "../services/auth/IsHasProfile.jsx";
+import StudentsPage from "../modules/students/pages/StudentsPage.jsx";
 import TrainingCenterPage from "../modules/training-center/pages/TrainingCenterPage.jsx";
 // PAGES
 
@@ -31,10 +32,14 @@ const Router = ({ ...rest }) => {
           <IsHasProfile>
             <Routes>
               <Route path={"/"} element={<DashboardLayout />}>
-                {/*<Route*/}
-                {/*    path={"/training-center"}*/}
-                {/*    element={<TrainingCenterPage />}*/}
-                {/*/>*/}
+                <Route
+                    path={"/training-center"}
+                    element={<TrainingCenterPage />}
+                />
+                <Route
+                    path={"/students"}
+                    element={<StudentsPage />}
+                />
                 <Route
                     path={"auth/*"}
                     element={<Navigate to={"/training-center"} replace />}

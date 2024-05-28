@@ -8,9 +8,9 @@ import {KEYS} from "../../../constants/key.js";
 import {URLS} from "../../../constants/url.js";
 import useDeleteQuery from "../../../hooks/api/useDeleteQuery.js";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
-import CreateEditTrainingCenter from "../components/CreateEditTrainingCenter.jsx";
+import CreateEditStudent from "../components/CreateEditStudent.jsx";
 
-const TrainingCenterContainer = () => {
+const StudentsContainer = () => {
     const {t} = useTranslation();
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
@@ -19,8 +19,8 @@ const TrainingCenterContainer = () => {
     const [isCreateModalOpenCreate, setIsCreateModalOpen] = useState(false)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const {data,isLoading,isFetching,refetch} = usePaginateQuery({
-        key: KEYS.training_center_list,
-        url: URLS.training_center_list,
+        key: KEYS.student_list,
+        url: URLS.student_list,
         params: {
             params: {
                 size,
@@ -30,10 +30,10 @@ const TrainingCenterContainer = () => {
         page
     });
     const { mutate } = useDeleteQuery({
-        listKeyId: KEYS.training_center_list
+        listKeyId: KEYS.student_list
     });
     const useDelete = (id) => {
-        mutate({url: `${URLS.training_center_list}/${id}`},{
+        mutate({url: `${URLS.student_list}/${id}`},{
             onSuccess: () => {
                 refetch();
             }
@@ -46,9 +46,9 @@ const TrainingCenterContainer = () => {
             key: "id",
         },
         {
-            title: t("Name"),
-            dataIndex: "name",
-            key: "name"
+            title: t("Full name"),
+            dataIndex: "fullName",
+            key: "fullName"
         },
         {
             title: t("Username"),
@@ -56,14 +56,14 @@ const TrainingCenterContainer = () => {
             key: "username",
         },
         {
+            title: t("phoneNumber"),
+            dataIndex: "phoneNumber",
+            key: "phoneNumber",
+        },
+        {
             title: t("password"),
             dataIndex: "password",
             key: "password",
-        },
-        {
-            title: t("Info"),
-            dataIndex: "info",
-            key: "info",
         },
         {
             title: t("Edit / Delete"),
@@ -111,7 +111,7 @@ const TrainingCenterContainer = () => {
                         onCancel={() => setIsCreateModalOpen(false)}
                         footer={null}
                     >
-                        <CreateEditTrainingCenter setIsModalOpen={setIsCreateModalOpen} refetch={refetch}/>
+                        <CreateEditStudent setIsModalOpen={setIsCreateModalOpen} refetch={refetch}/>
                     </Modal>
                 </Space>
                 <Modal
@@ -120,7 +120,7 @@ const TrainingCenterContainer = () => {
                     onCancel={() => setIsEditModalOpen(false)}
                     footer={null}
                 >
-                    <CreateEditTrainingCenter
+                    <CreateEditStudent
                         itemData={selected}
                         setIsModalOpen={setIsEditModalOpen}
                         refetch={refetch}
@@ -149,4 +149,4 @@ const TrainingCenterContainer = () => {
     );
 };
 
-export default TrainingCenterContainer;
+export default StudentsContainer;
