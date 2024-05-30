@@ -7,8 +7,9 @@ import usePaginateQuery from "../../../hooks/api/usePaginateQuery.js";
 import {KEYS} from "../../../constants/key.js";
 import {URLS} from "../../../constants/url.js";
 import useDeleteQuery from "../../../hooks/api/useDeleteQuery.js";
-import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
+import {DeleteOutlined, DownloadOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
 import CreateEditStudent from "../components/CreateEditStudent.jsx";
+import {request} from "../../../services/api/index.js";
 
 const StudentsContainer = () => {
     const {t} = useTranslation();
@@ -29,6 +30,7 @@ const StudentsContainer = () => {
         },
         page
     });
+
     const { mutate } = useDeleteQuery({
         listKeyId: KEYS.student_list
     });
@@ -37,6 +39,13 @@ const StudentsContainer = () => {
             onSuccess: () => {
                 refetch();
             }
+        })
+    }
+    const navigateToCertificate = (id) => {
+        request.get(`${URLS.get_certificate_by_student_id}/${id}`).then(res => {
+            window.open(get(res,'data'), '_blank')
+        }).catch(err => {
+            console.log(err)
         })
     }
     const columns = [
@@ -69,6 +78,24 @@ const StudentsContainer = () => {
             title: t("Training center name"),
             dataIndex: "trainingCenterName",
             key: "trainingCenterName",
+        },
+        {
+            title: t("Get sertificate"),
+            key: "getSertificate",
+            width: 130,
+            dataIndex: "id",
+            render: (id) => {
+                return <Button
+                    block
+                    icon={<DownloadOutlined />}
+                    type={"primary"}
+                    onClick={() => {
+                        navigateToCertificate(id)
+                    }}
+                >
+                    {t("Download")}
+                </Button>
+            }
         },
         {
             title: t("Edit / Delete"),

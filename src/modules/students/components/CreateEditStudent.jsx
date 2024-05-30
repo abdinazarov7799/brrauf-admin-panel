@@ -7,6 +7,8 @@ import {Button, Form, Input, Select} from "antd";
 import {get} from "lodash";
 import usePutQuery from "../../../hooks/api/usePutQuery.js";
 import useGetAllQuery from "../../../hooks/api/useGetAllQuery.js";
+import HasAccess from "../../../services/auth/HasAccess.jsx";
+import config from "../../../config.js";
 
 const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
     const { t } = useTranslation();
@@ -103,27 +105,29 @@ const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
                     <Input.Password />
                 </Form.Item>
 
-                <Form.Item
-                    label={t("Training center")}
-                    name="trainingCenterId"
-                    rules={[{required: true,}]}
-                >
-                    <Select
-                        showSearch
-                        placeholder={t("Training center")}
-                        optionFilterProp="children"
-                        onSearch={(e) => setSearchCenter(e)}
-                        filterOption={(input, option) =>
-                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-                        loading={isLoadingCenters}
-                        options={get(centers,'data.data.content')?.map((item) => {
-                            return {
-                                value: get(item,'id'),
-                                label: get(item,'name')
-                            }
-                        })}
-                    />
-                </Form.Item>
+                <HasAccess access={[config.ROLES.ROLE_SUPER_ADMIN]}>
+                    <Form.Item
+                        label={t("Training center")}
+                        name="trainingCenterId"
+                        rules={[{required: true,}]}
+                    >
+                        <Select
+                            showSearch
+                            placeholder={t("Training center")}
+                            optionFilterProp="children"
+                            onSearch={(e) => setSearchCenter(e)}
+                            filterOption={(input, option) =>
+                                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+                            loading={isLoadingCenters}
+                            options={get(centers,'data.data.content')?.map((item) => {
+                                return {
+                                    value: get(item,'id'),
+                                    label: get(item,'name')
+                                }
+                            })}
+                        />
+                    </Form.Item>
+                </HasAccess>
 
                 <Form.Item>
                     <Button block type="primary" htmlType="submit" loading={isLoading || isLoadingEdit}>

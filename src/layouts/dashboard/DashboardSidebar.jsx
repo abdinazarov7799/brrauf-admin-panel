@@ -17,7 +17,7 @@ const DashboardSidebar = () => {
         {
             label: t("Training center"),
             key: "/training-center",
-            access: [config.ROLES.ROLE_ADMIN,config.ROLES.ROLE_SUPER_ADMIN],
+            access: [config.ROLES.ROLE_SUPER_ADMIN],
         },
         {
             label: t("Exercise"),
