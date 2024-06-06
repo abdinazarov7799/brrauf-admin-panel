@@ -24,6 +24,7 @@ import TrainingCenterPage from "../modules/training-center/pages/TrainingCenterP
 import ScoringCriteriaPage from "../modules/scoring-criteria/pages/ScoringCriteriaPage.jsx";
 import ExerciseTypePage from "../modules/exercise-type/pages/ExerciseTypePage.jsx";
 import ExercisePage from "../modules/exercise/pages/ExercisePage.jsx";
+import ExerciseResultPage from "../modules/exercise-result/pages/ExerciseResultPage.jsx";
 // PAGES
 
 
@@ -46,6 +47,10 @@ const Router = ({ ...rest }) => {
                 <Route
                     path={"/exercise-type"}
                     element={<ExerciseTypePage />}
+                />
+                <Route
+                    path={"/exercise-result"}
+                    element={<ExerciseResultPage />}
                 />
                 <Route
                     path={"/scoring-criteria"}

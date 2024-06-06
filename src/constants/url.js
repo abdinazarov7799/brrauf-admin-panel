@@ -15,6 +15,8 @@ export const URLS = {
     exercise_type_edit: "/api/exercise-type/edit",
     exercise_type_list: "/api/exercise-type/get",
 
+    exercise_result_list: "/api/exercise-result/get",
+
     student_add: "/api/student/add",
     student_delete: "/api/student/delete",
     student_edit: "/api/student/edit",

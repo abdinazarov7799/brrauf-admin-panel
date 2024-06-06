@@ -30,6 +30,11 @@ const DashboardSidebar = () => {
             access: [config.ROLES.ROLE_ADMIN,config.ROLES.ROLE_SUPER_ADMIN],
         },
         {
+            label: t("Exercise result"),
+            key: "/exercise-result",
+            access: [config.ROLES.ROLE_ADMIN,config.ROLES.ROLE_SUPER_ADMIN,config.ROLES.ROLE_STUDENT]
+        },
+        {
             label: t("Scoring criteria"),
             key: "/scoring-criteria",
             access: [config.ROLES.ROLE_ADMIN,config.ROLES.ROLE_SUPER_ADMIN],
