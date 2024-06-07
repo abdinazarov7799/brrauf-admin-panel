@@ -56,7 +56,7 @@ const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
             );
         }else {
             mutate(
-                { url: URLS.student_add, attributes: values },
+                { url: URLS.student_add, attributes: {trainingCenterId: null, ...values} },
                 {
                     onSuccess: () => {
                         setIsModalOpen(false);
