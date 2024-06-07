@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Container from "../../../components/Container.jsx";
-import {Button, Input, Pagination, Popover, Row, Select, Space, Table} from "antd";
+import {Button, Input, Pagination, Popover, Row, Select, Space, Table, Typography} from "antd";
 import {get} from "lodash";
 import {useTranslation} from "react-i18next";
 import usePaginateQuery from "../../../hooks/api/usePaginateQuery.js";
@@ -11,6 +11,7 @@ import HasAccess, {hasAccess} from "../../../services/auth/HasAccess.jsx";
 import config from "../../../config.js";
 import {useStore} from "../../../store/index.js";
 import {EyeOutlined} from "@ant-design/icons";
+const { Text} = Typography;
 
 const ExerciseResultContainer = () => {
     const {t} = useTranslation();
@@ -91,7 +92,9 @@ const ExerciseResultContainer = () => {
                 return (
                     <Popover
                         content={
-                            <Space direction={"vertical"}>{data?.map((item) => (<Text>{get(item, 'criteriaName')}: {get(item,'score')}</Text>))}</Space>
+                            <Space direction={"vertical"}>{
+                                data?.map((item) => (<Text>{get(item, 'criteriaName')}: {get(item,'score')}</Text>))
+                            }</Space>
                         }
                         title={t("Scores")}
                     >
