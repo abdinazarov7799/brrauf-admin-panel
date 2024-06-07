@@ -33,7 +33,7 @@ const TrainingCenterContainer = () => {
         listKeyId: KEYS.training_center_list
     });
     const useDelete = (id) => {
-        mutate({url: `${URLS.training_center_list}/${id}`},{
+        mutate({url: `${URLS.training_center_delete}/${id}`},{
             onSuccess: () => {
                 refetch();
             }

@@ -4,7 +4,6 @@ const config = {
   ROLES: {
     ROLE_SUPER_ADMIN: "ROLE_SUPER_ADMIN",
     ROLE_ADMIN: "ROLE_ADMIN",
-    ROLE_STUDENT: "ROLE_STUDENT"
   }
 }
 export default config;

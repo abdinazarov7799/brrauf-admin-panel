@@ -35,7 +35,7 @@ const StudentsContainer = () => {
         listKeyId: KEYS.student_list
     });
     const useDelete = (id) => {
-        mutate({url: `${URLS.student_list}/${id}`},{
+        mutate({url: `${URLS.student_delete}/${id}`},{
             onSuccess: () => {
                 refetch();
             }

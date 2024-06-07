@@ -46,7 +46,7 @@ const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
     const onFinish = (values) => {
         if (itemData){
             mutateEdit(
-                { url: `${URLS.student_edit}/${get(itemData,'id')}`, attributes: values },
+                { url: `${URLS.student_edit}/${get(itemData,'id')}`, attributes: {trainingCenterId: get(itemData,'trainingCenterId'), ...values} },
                 {
                     onSuccess: () => {
                         setIsModalOpen(false);
