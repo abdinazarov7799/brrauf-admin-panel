@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Container from "../../../components/Container.jsx";
-import {Input, Pagination, Row, Select, Space, Table} from "antd";
+import {Button, Input, Pagination, Popover, Row, Select, Space, Table} from "antd";
 import {get} from "lodash";
 import {useTranslation} from "react-i18next";
 import usePaginateQuery from "../../../hooks/api/usePaginateQuery.js";
@@ -10,6 +10,7 @@ import useGetAllQuery from "../../../hooks/api/useGetAllQuery.js";
 import HasAccess, {hasAccess} from "../../../services/auth/HasAccess.jsx";
 import config from "../../../config.js";
 import {useStore} from "../../../store/index.js";
+import {EyeOutlined} from "@ant-design/icons";
 
 const ExerciseResultContainer = () => {
     const {t} = useTranslation();
@@ -82,6 +83,23 @@ const ExerciseResultContainer = () => {
                 return get(data,'exerciseType.name')
             }
         },
+        {
+            title: t("Scores"),
+            dataIndex: "scores",
+            key: "scores",
+            render: (data) => {
+                return (
+                    <Popover
+                        content={
+                            <Space direction={"vertical"}>{data?.map((item) => (<Text>{get(item, 'criteriaName')}: {get(item,'score')}</Text>))}</Space>
+                        }
+                        title={t("Scores")}
+                    >
+                        <Button type="primary" icon={<EyeOutlined />} />
+                    </Popover>
+                )
+            }
+        },
     ]
     return (
         <Container>
@@ -90,6 +108,7 @@ const ExerciseResultContainer = () => {
                     <Select
                         style={{width: "100%"}}
                         showSearch
+                        allowClear
                         placeholder={t("Training center")}
                         optionFilterProp="children"
                         onSearch={(e) => setSearchCenter(e)}

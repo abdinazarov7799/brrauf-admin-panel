@@ -9,6 +9,9 @@ import {URLS} from "../../../constants/url.js";
 import useDeleteQuery from "../../../hooks/api/useDeleteQuery.js";
 import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
 import CreateEditExerciseType from "../components/CreateEditExerciseType.jsx";
+import HasAccess, {hasAccess} from "../../../services/auth/HasAccess.jsx";
+import config from "../../../config.js";
+import {useStore} from "../../../store/index.js";
 
 const ExerciseTypeContainer = () => {
     const {t} = useTranslation();
@@ -18,6 +21,7 @@ const ExerciseTypeContainer = () => {
     const [selected,setSelected] = useState(null);
     const [isCreateModalOpenCreate, setIsCreateModalOpen] = useState(false)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const user = useStore(state => get(state,'user',{}))
     const {data,isLoading,isFetching,refetch} = usePaginateQuery({
         key: KEYS.exercise_type_list,
         url: URLS.exercise_type_list,
@@ -44,17 +48,20 @@ const ExerciseTypeContainer = () => {
             title: t("ID"),
             dataIndex: "id",
             key: "id",
+            access: [config.ROLES.ROLE_ADMIN,config.ROLES.ROLE_SUPER_ADMIN],
         },
         {
             title: t("Name"),
             dataIndex: "name",
-            key: "name"
+            key: "name",
+            access: [config.ROLES.ROLE_ADMIN,config.ROLES.ROLE_SUPER_ADMIN],
         },
         {
             title: t("Edit / Delete"),
             width: 120,
             fixed: 'right',
             key: 'action',
+            access: [config.ROLES.ROLE_SUPER_ADMIN],
             render: (props, data, index) => (
                 <Space key={index}>
                     <Button icon={<EditOutlined />} onClick={() => {
@@ -73,7 +80,9 @@ const ExerciseTypeContainer = () => {
                 </Space>
             )
         }
-    ]
+    ].filter((item) => {
+        return hasAccess(get(user,'roles',[]),get(item,'access'));
+    });
     return (
         <Container>
             <Space direction={"vertical"} style={{width: "100%"}} size={"middle"}>
@@ -83,13 +92,15 @@ const ExerciseTypeContainer = () => {
                         onChange={(e) => setSearchKey(e.target.value)}
                         allowClear
                     />
-                    <Button
-                        icon={<PlusOutlined />}
-                        type={"primary"}
-                        onClick={() => setIsCreateModalOpen(true)}
-                    >
-                        {t("New")}
-                    </Button>
+                    <HasAccess access={[config.ROLES.ROLE_SUPER_ADMIN]}>
+                        <Button
+                            icon={<PlusOutlined />}
+                            type={"primary"}
+                            onClick={() => setIsCreateModalOpen(true)}
+                        >
+                            {t("New")}
+                        </Button>
+                    </HasAccess>
                     <Modal
                         title={t('Create')}
                         open={isCreateModalOpenCreate}

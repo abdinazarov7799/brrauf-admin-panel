@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {get, includes, isEmpty, uniq} from "lodash";
 import {useStore} from "../../store";
-import Forbidden from "../../components/Forbidden.jsx";
 
 export const hasAccess = (roleList = [], access = [],cant=[]) => {
     let hasAccessToRole = false;
@@ -35,7 +34,7 @@ const HasAccess = ({
     }, [user])
     return (
         <>
-            {hasAccess(roles,access,cant) ?  children : <Forbidden />}
+            {hasAccess(roles,access,cant) ?  children : <></>}
         </>
     );
 };

@@ -7,7 +7,7 @@ import {Button, Form, Input, Select} from "antd";
 import {get} from "lodash";
 import usePutQuery from "../../../hooks/api/usePutQuery.js";
 import useGetAllQuery from "../../../hooks/api/useGetAllQuery.js";
-import HasAccess from "../../../services/auth/HasAccess.jsx";
+import HasAccess, {hasAccess} from "../../../services/auth/HasAccess.jsx";
 import config from "../../../config.js";
 
 const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
@@ -29,7 +29,8 @@ const CreateEditStudent = ({itemData,setIsModalOpen,refetch}) => {
                 search: searchCenter,
                 size: 1000
             }
-        }
+        },
+        enabled: hasAccess([config.ROLES.ROLE_SUPER_ADMIN])
     })
 
     useEffect(() => {
