@@ -56,7 +56,7 @@ const TrainingCenterContainer = () => {
             key: "username",
         },
         {
-            title: t("password"),
+            title: t("Password"),
             dataIndex: "password",
             key: "password",
         },

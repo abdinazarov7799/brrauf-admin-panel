@@ -76,7 +76,7 @@ const CreateEditTrainingCenter = ({itemData,setIsModalOpen,refetch}) => {
                 </Form.Item>
 
                 <Form.Item
-                    label={t("info")}
+                    label={t("Info")}
                     name="info"
                     rules={[{required: true,}]}
                 >
@@ -84,7 +84,7 @@ const CreateEditTrainingCenter = ({itemData,setIsModalOpen,refetch}) => {
                 </Form.Item>
 
                 <Form.Item
-                    label={t("password")}
+                    label={t("Password")}
                     name="password"
                     rules={[{required: true,}]}
                 >

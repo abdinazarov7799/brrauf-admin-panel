@@ -93,15 +93,15 @@ const DashboardHeader = () => {
                           checked={darkMode}
                           onClick={() => setDarkMode()}
                       />
-                      <Dropdown
-                          menu={{items}}
-                          placement="bottom"
-                          trigger={['click']}
-                          overlayClassName={"language-dropdown"}
-                          over
-                      >
-                          <Image src={isEqual(lang,"RU") ? ru : uz} preview={false} width={30} height={30} alt={"flag image"} />
-                      </Dropdown>
+                      {/*<Dropdown*/}
+                      {/*    menu={{items}}*/}
+                      {/*    placement="bottom"*/}
+                      {/*    trigger={['click']}*/}
+                      {/*    overlayClassName={"language-dropdown"}*/}
+                      {/*    over*/}
+                      {/*>*/}
+                      {/*    <Image src={isEqual(lang,"RU") ? ru : uz} preview={false} width={30} height={30} alt={"flag image"} />*/}
+                      {/*</Dropdown>*/}
                       <Button
                           icon={<LogoutOutlined />}
                           style={{height: 50,}}

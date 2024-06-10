@@ -65,12 +65,12 @@ const StudentsContainer = () => {
             key: "username",
         },
         {
-            title: t("phoneNumber"),
+            title: t("Phone number"),
             dataIndex: "phoneNumber",
             key: "phoneNumber",
         },
         {
-            title: t("password"),
+            title: t("Password"),
             dataIndex: "password",
             key: "password",
         },
@@ -80,7 +80,7 @@ const StudentsContainer = () => {
             key: "trainingCenterName",
         },
         {
-            title: t("Get sertificate"),
+            title: t("Sertificate"),
             key: "getSertificate",
             width: 130,
             dataIndex: "id",
